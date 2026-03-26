@@ -654,3 +654,123 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ===== STRIPE MODAL ===== */
+.stripe-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3000;
+  padding: 24px;
+}
+
+.stripe-modal {
+  background: #ffffff;
+  width: 100%;
+  max-width: 460px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 50px 100px -20px rgba(50, 50, 93, 0.3), 0 30px 60px -30px rgba(0, 0, 0, 0.4);
+  color: #1a1f36;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.stripe-header {
+  padding: 32px;
+  background: #f7fafc;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.stripe-logo {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.stripe-avatar {
+  width: 40px;
+  height: 40px;
+  background: #635bff;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  box-shadow: 0 4px 12px rgba(99, 91, 255, 0.3);
+}
+
+.stripe-header h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1a1f36;
+}
+
+.stripe-header p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #6b7c93;
+}
+
+.stripe-price {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #1a1f36;
+}
+
+.stripe-form {
+  padding: 32px;
+}
+
+.stripe-form .form-group {
+  margin-bottom: 24px;
+}
+
+.stripe-form label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #4f566b;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.stripe-form input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #e6e6e6;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: #ffffff;
+  color: #1a1f36;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+}
+
+.stripe-form input:focus {
+  border-color: #635bff;
+  box-shadow: 0 0 0 1px #635bff, 0 1px 3px rgba(0,0,0,0.05);
+  outline: none;
+}
+
+.stripe-card-input {
+  border: 1px solid #e6e6e6;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+}
+
+.stripe-card-input input {
+  border: none !important;
+  border-radius: 0 !important;
+  margin-bottom: 0 !important;
+  box-shadow: none !important;
+}

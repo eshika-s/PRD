@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import StripeCheckout from './StripeCheckout';
 
 export default function UserDashboard({ user, setUser }) {
   const [charities, setCharities] = useState([]);
@@ -33,13 +34,20 @@ export default function UserDashboard({ user, setUser }) {
     }
   };
 
+  const [showPayment, setShowPayment] = useState(false);
+
   const handleSubscribe = async () => {
+    setShowPayment(true);
+  };
+
+  const finalizeSubscription = async () => {
     setLoadingAction('subscribe');
     try {
       const res = await axios.post('/subscription', { plan, charityId: selectedCharity });
       const userRes = await axios.get('/auth/me');
       setUser(userRes.data);
       toast.success(`Subscribed to ${plan} plan! Welcome aboard! 🎉`);
+      setShowPayment(false);
     } catch (e) {
       toast.error('Failed to subscribe. Please try again.');
     } finally {
@@ -117,15 +125,27 @@ export default function UserDashboard({ user, setUser }) {
   ];
 
   if (!user.subscription) {
-    return <SubscriptionFlow 
-      plan={plan} 
-      setPlan={setPlan} 
-      charities={charities} 
-      selectedCharity={selectedCharity} 
-      setSelectedCharity={setSelectedCharity} 
-      handleSubscribe={handleSubscribe} 
-      loading={loadingAction === 'subscribe'}
-    />;
+    return (
+      <>
+        <SubscriptionFlow 
+          plan={plan} 
+          setPlan={setPlan} 
+          charities={charities} 
+          selectedCharity={selectedCharity} 
+          setSelectedCharity={setSelectedCharity} 
+          handleSubscribe={handleSubscribe} 
+          loading={loadingAction === 'subscribe'}
+        />
+        {showPayment && (
+          <StripeCheckout 
+            plan={plan}
+            charity={charities.find(c => c.id === selectedCharity)?.name}
+            onComplete={finalizeSubscription}
+            onCancel={() => setShowPayment(false)}
+          />
+        )}
+      </>
+    );
   }
 
   return (
