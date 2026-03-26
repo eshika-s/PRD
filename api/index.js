@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const { v4: uuidv4 } = require('uuid');
+const crypto = require('crypto');
 const { createClient } = require('@supabase/supabase-js');
 
 const app = express();
@@ -45,7 +45,7 @@ app.post('/api/auth/register', async (req, res) => {
     .single();
   if (existing) return res.status(400).json({ error: 'User already exists' });
 
-  const token = uuidv4();
+  const token = crypto.randomUUID();
   const { data: newUser, error } = await supabase
     .from('users')
     .insert({
